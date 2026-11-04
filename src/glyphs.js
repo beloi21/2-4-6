@@ -117,8 +117,8 @@ export function createGlyphs(renderer) {
   const cache = new Map();
 
   /** Fracture one character into stone and glass, cached by character and size. */
-  function glyphGeometry(char, size, depth) {
-    const key = `${char}|${size}|${depth}`;
+  function glyphGeometry(char, size, depth, rough) {
+    const key = `${char}|${size}|${depth}|${rough}`;
     if (cache.has(key)) return cache.get(key);
 
     const text = new TextGeometry(char, {
@@ -157,7 +157,7 @@ export function createGlyphs(renderer) {
         const z = pos.getZ(j);
         if (isStone) {
           // Displace by position alone, so shared corners stay joined.
-          const amount = size * 0.016;
+          const amount = size * rough;
           stonePos.push(
             x + wobble(x, y, z) * amount,
             y + wobble(y + 2, z, x) * amount,
@@ -217,7 +217,7 @@ export function createGlyphs(renderer) {
    * A word as a group, centred on x = 0 with its baseline at y = 0.
    * `bolts` puts lightning in each glyph's fracture.
    */
-  function makeWord(text, { size, depth = size * 0.3, gap = size * 0.14, space = size * 0.4, bolts = false }) {
+  function makeWord(text, { size, depth = size * 0.3, gap = size * 0.14, space = size * 0.4, bolts = false, rough = 0.016 }) {
     const group = new THREE.Group();
     const parts = [];
     const stoneMeshes = [];
@@ -228,7 +228,7 @@ export function createGlyphs(renderer) {
         x += space;
         continue;
       }
-      const geo = glyphGeometry(char, size, depth);
+      const geo = glyphGeometry(char, size, depth, rough);
       const glyph = new THREE.Group();
       const rock = new THREE.Mesh(geo.stone, stone);
       rock.castShadow = true;

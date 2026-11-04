@@ -178,7 +178,13 @@ function placeBadge() {
   if (stage) {
     const top = stage.pileTop(round.selectedPile, round.piles[round.selectedPile].length);
     // Never over the chalk text: on short screens it sits on the top brick instead.
-    const y = Math.max(top.y, freeArea().y + ui.badge.offsetHeight + 4);
+    let y = Math.max(top.y, freeArea().y + ui.badge.offsetHeight + 4);
+    // Nor over the name on the wall: it drops onto the top brick if it must.
+    const name = stage.nameRect();
+    const half = ui.badge.offsetWidth / 2;
+    if (name && top.x - half < name.right + 4 && top.x + half > name.left - 4 && y - ui.badge.offsetHeight < name.bottom + 4) {
+      y = name.bottom + 4 + ui.badge.offsetHeight;
+    }
     ui.badge.style.transform = `translate(${top.x}px, ${y}px) translate(-50%, -100%)`;
   }
 }

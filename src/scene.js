@@ -119,8 +119,9 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onStrike,
 
   const counts = PILE_X.map((x) => {
     const holder = new THREE.Group();
-    holder.position.set(x, 0.05, 1.5);
-    holder.rotation.x = -0.98;
+    // Leans back only a little: lying flatter squashed the 2 and 6 into blobs.
+    holder.position.set(x, 0.02, 1.8);
+    holder.rotation.x = -0.6;
     scene.add(holder);
     return { holder, word: null, value: null, chosen: false };
   });
@@ -306,7 +307,7 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onStrike,
     const slot = counts[pile];
     if (slot.value !== count) {
       if (slot.word) slot.holder.remove(slot.word.group);
-      slot.word = glyphs.makeWord(String(count), { size: 0.66, depth: 0.12 });
+      slot.word = glyphs.makeWord(String(count), { size: 0.56, depth: 0.05, rough: 0.008 });
       slot.word.setChosen(slot.chosen);
       slot.holder.add(slot.word.group);
       slot.value = count;
@@ -637,7 +638,21 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onStrike,
     };
   }
 
+  const nameBox = new THREE.Box3().setFromObject(title.group).union(new THREE.Box3().setFromObject(byline.group));
+
+  /** Screen extent of the name on the wall, so the total can stay clear of it. */
+  function nameRect() {
+    if (!title.group.visible) return null;
+    const px = (x, y) => {
+      corner.set(x, y, nameBox.max.z).project(camera);
+      return { x: (corner.x * 0.5 + 0.5) * width, y: (-corner.y * 0.5 + 0.5) * height };
+    };
+    const a = px(nameBox.min.x, nameBox.min.y);
+    const b = px(nameBox.max.x, nameBox.max.y);
+    return { left: a.x, right: b.x, top: b.y, bottom: a.y };
+  }
+
   layout();
 
-  return { layout, newRound, setSelected, removeBricks, setPileCount, brickRect, pileTop, wake };
+  return { layout, nameRect, newRound, setSelected, removeBricks, setPileCount, brickRect, pileTop, wake };
 }
