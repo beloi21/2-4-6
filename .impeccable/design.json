@@ -1,0 +1,518 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T06:39:23.504Z",
+  "title": "Design System: 2-4-6 by A.R.C. Alberto",
+  "extensions": {
+    "colorMeta": {
+      "chalk": {
+        "role": "primary",
+        "displayName": "Stick Chalk",
+        "canonical": "#efe7d8",
+        "tonalRamp": [
+          "#100a03",
+          "#2a2419",
+          "#484135",
+          "#676053",
+          "#898174",
+          "#aca496",
+          "#d0c8ba",
+          "#f6eede"
+        ]
+      },
+      "ember": {
+        "role": "secondary",
+        "displayName": "Ember",
+        "canonical": "#e8935a",
+        "tonalRamp": [
+          "#170600",
+          "#3d1a00",
+          "#673102",
+          "#964901",
+          "#bc6a30",
+          "#e28d54",
+          "#ffb788",
+          "#ffeadd"
+        ]
+      },
+      "ember-mark": {
+        "role": "secondary",
+        "displayName": "Hot Ember Mark",
+        "canonical": "#ffb27c",
+        "tonalRamp": [
+          "#170600",
+          "#3c1b01",
+          "#663202",
+          "#914d10",
+          "#b66e38",
+          "#dc915c",
+          "#ffb785",
+          "#feeadd"
+        ]
+      },
+      "ember-glow": {
+        "role": "secondary",
+        "displayName": "Ember Glow",
+        "canonical": "#ff6a20",
+        "tonalRamp": [
+          "#1a0400",
+          "#431400",
+          "#712700",
+          "#a23c00",
+          "#d75201",
+          "#fe783d",
+          "#feb599",
+          "#ffe9e1"
+        ]
+      },
+      "fired-clay": {
+        "role": "tertiary",
+        "displayName": "Fired Clay",
+        "canonical": "#a8492c",
+        "tonalRamp": [
+          "#1c0300",
+          "#461000",
+          "#762001",
+          "#9e4022",
+          "#c46245",
+          "#eb8567",
+          "#ffb49e",
+          "#fee9e3"
+        ]
+      },
+      "brick-dust": {
+        "role": "tertiary",
+        "displayName": "Brick Dust",
+        "canonical": "#c9a587",
+        "tonalRamp": [
+          "#150700",
+          "#391d01",
+          "#593a1f",
+          "#7a5a3e",
+          "#9d7b5e",
+          "#c19d7f",
+          "#e6c1a2",
+          "#ffeada"
+        ]
+      },
+      "sun-light": {
+        "role": "tertiary",
+        "displayName": "Sun Light",
+        "canonical": "#ffb078",
+        "tonalRamp": [
+          "#170600",
+          "#3c1b00",
+          "#663200",
+          "#924c09",
+          "#b76e35",
+          "#dd9159",
+          "#feb785",
+          "#ffeadc"
+        ]
+      },
+      "sky-light": {
+        "role": "tertiary",
+        "displayName": "Sky Light",
+        "canonical": "#8496b8",
+        "tonalRamp": [
+          "#020922",
+          "#172440",
+          "#32425f",
+          "#516181",
+          "#7183a4",
+          "#93a6c8",
+          "#b7caee",
+          "#e7effe"
+        ]
+      },
+      "rim-light": {
+        "role": "tertiary",
+        "displayName": "Rim Light",
+        "canonical": "#87a2d8",
+        "tonalRamp": [
+          "#00042e",
+          "#0f224e",
+          "#2a406f",
+          "#486092",
+          "#6882b6",
+          "#8aa5db",
+          "#aec9ff",
+          "#e7efff"
+        ]
+      },
+      "fill-light": {
+        "role": "tertiary",
+        "displayName": "Fill Light",
+        "canonical": "#ffd9c0",
+        "tonalRamp": [
+          "#170600",
+          "#391d08",
+          "#583a25",
+          "#7a5943",
+          "#9c7a63",
+          "#c09d85",
+          "#e6c1a8",
+          "#feeadd"
+        ]
+      },
+      "bounce-light": {
+        "role": "tertiary",
+        "displayName": "Bounce Light",
+        "canonical": "#2a2018",
+        "tonalRamp": [
+          "#120904",
+          "#2d231b",
+          "#4b4037",
+          "#6b5f55",
+          "#8c8076",
+          "#afa298",
+          "#d4c6bc",
+          "#faece1"
+        ]
+      },
+      "goggle-white": {
+        "role": "tertiary",
+        "displayName": "Goggle White",
+        "canonical": "#fff8ec",
+        "tonalRamp": [
+          "#0f0a04",
+          "#29241b",
+          "#474138",
+          "#666056",
+          "#888177",
+          "#aba499",
+          "#cfc8bd",
+          "#f5eee2"
+        ]
+      },
+      "pupil-ink": {
+        "role": "tertiary",
+        "displayName": "Pupil Ink",
+        "canonical": "#0d0a08",
+        "tonalRamp": [
+          "#0d0a08",
+          "#282422",
+          "#45413e",
+          "#64605d",
+          "#86817e",
+          "#a8a4a1",
+          "#cdc8c5",
+          "#f2edea"
+        ]
+      },
+      "mouth-dark": {
+        "role": "tertiary",
+        "displayName": "Mouth Dark",
+        "canonical": "#2a0b0b",
+        "tonalRamp": [
+          "#1c0203",
+          "#3b1a19",
+          "#5b3735",
+          "#7c5653",
+          "#9f7674",
+          "#c49996",
+          "#e9bdb9",
+          "#fee9e7"
+        ]
+      },
+      "raspberry": {
+        "role": "tertiary",
+        "displayName": "Raspberry",
+        "canonical": "#e8607a",
+        "tonalRamp": [
+          "#1e0005",
+          "#4b0018",
+          "#7e002d",
+          "#ab2549",
+          "#d34d69",
+          "#fb718a",
+          "#feb1ba",
+          "#ffe8ea"
+        ]
+      },
+      "soot": {
+        "role": "neutral",
+        "displayName": "Soot",
+        "canonical": "#17130f",
+        "tonalRamp": [
+          "#0e0a07",
+          "#292420",
+          "#46413c",
+          "#65605b",
+          "#87817c",
+          "#aaa49e",
+          "#cec8c2",
+          "#f3ede7"
+        ]
+      },
+      "packed-earth": {
+        "role": "neutral",
+        "displayName": "Packed Earth",
+        "canonical": "#4a3a2c",
+        "tonalRamp": [
+          "#140800",
+          "#302214",
+          "#4f3e30",
+          "#6f5e4f",
+          "#917f6f",
+          "#b4a191",
+          "#d9c5b4",
+          "#ffead9"
+        ]
+      },
+      "chalk-dim": {
+        "role": "neutral",
+        "displayName": "Worn Chalk",
+        "canonical": "#c9bfae",
+        "tonalRamp": [
+          "#110a01",
+          "#2c2416",
+          "#494132",
+          "#696051",
+          "#8a8171",
+          "#ada493",
+          "#d2c8b7",
+          "#f8eddb"
+        ]
+      },
+      "chalk-faint": {
+        "role": "neutral",
+        "displayName": "Faint Chalk",
+        "canonical": "#a79d8d",
+        "tonalRamp": [
+          "#110a01",
+          "#2c2417",
+          "#494133",
+          "#696051",
+          "#8b8171",
+          "#aea493",
+          "#d2c8b7",
+          "#f8eddc"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The 2-4-6 title only."
+      },
+      "verdict": {
+        "displayName": "Verdict",
+        "purpose": "The end-of-round line, scrawled large across the wall."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The live turn line."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "The dialog heading."
+      },
+      "count": {
+        "displayName": "Count",
+        "purpose": "The running total in the badge above the chosen pile."
+      },
+      "label-primary": {
+        "displayName": "Primary Label",
+        "purpose": "The active primary control."
+      },
+      "label-resting": {
+        "displayName": "Resting Label",
+        "purpose": "The primary control while disabled and prompting."
+      },
+      "label-secondary": {
+        "displayName": "Secondary Label",
+        "purpose": "The outline control."
+      },
+      "name": {
+        "displayName": "Name",
+        "purpose": "Player names on the wall."
+      },
+      "input": {
+        "displayName": "Input",
+        "purpose": "Typed names in the dialog."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "The base text size, the sub-line and dialog copy."
+      },
+      "byline": {
+        "displayName": "Byline",
+        "purpose": "The words by A.R.C. Alberto beside the title."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-draw",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The turn stroke drawing in (260ms) and the count badge flipping (240ms)."
+      },
+      {
+        "name": "press-control",
+        "value": "110ms ease-out",
+        "purpose": "Control press, scaling to 0.97; tool buttons take 120ms and scale to 0.94."
+      },
+      {
+        "name": "yard-fade",
+        "value": "500ms ease-out",
+        "purpose": "The 3D canvas fading in once the fonts and scene are ready."
+      },
+      {
+        "name": "brick-gravity",
+        "value": "15 world units per second squared",
+        "purpose": "Every fall in the yard, with a rebound at 0.2 of impact speed, a thud, dust and a small camera shake."
+      },
+      {
+        "name": "last-brick-landing",
+        "value": "620ms smoothstep arc",
+        "purpose": "The last brick growing 2.75 times and travelling to centre stage."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Bricks and the face are placed directly, with no dust, bounce or shake; CSS transitions collapse to 1ms."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "short-landscape",
+        "value": "(orientation: landscape) and (max-height: 560px)"
+      },
+      {
+        "name": "wide",
+        "value": "(min-width: 720px) and (min-height: 561px)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Chalk Block Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The primary action: a filled, streaked chalk block with soot knockout text.",
+      "html": "<svg width=\"0\" height=\"0\" style=\"position:absolute\" aria-hidden=\"true\"><filter id=\"ds-chalk-solid\" x=\"-4%\" y=\"-8%\" width=\"108%\" height=\"116%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.04\" numOctaves=\"3\" seed=\"7\" result=\"wobble\"/><feDisplacementMap in=\"SourceGraphic\" in2=\"wobble\" scale=\"6\" result=\"edge\"/><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.012 0.55\" numOctaves=\"2\" seed=\"3\"/><feColorMatrix values=\"0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0.5\" result=\"streak\"/><feComposite in=\"edge\" in2=\"streak\" operator=\"in\"/></filter></svg><div class=\"ds-wall\"><button class=\"ds-btn ds-btn-primary\" type=\"button\">Remove 2</button></div>",
+      "css": ".ds-wall { background: var(--soot); color: var(--chalk); font: 400 18px/1.3 var(--text); padding: 24px; } .ds-btn { min-height: 60px; min-width: 180px; padding: 8px 14px; position: relative; isolation: isolate; background: none; border: 0; cursor: pointer; font: 400 1.75rem/1 var(--text); transition: transform 110ms ease-out; } .ds-btn::before { content: \"\"; position: absolute; inset: 0; z-index: -1; border-radius: 10px 14px 9px 13px; transition: background-color 150ms ease-out; } .ds-btn:focus-visible { outline: 3px dashed var(--chalk); outline-offset: 3px; } .ds-btn:active:not(:disabled) { transform: scale(0.97); } .ds-btn-primary { color: var(--soot); font-size: 2.125rem; } .ds-btn-primary::before { background: var(--chalk); filter: url(#ds-chalk-solid); } .ds-btn-primary:hover::before { background: #fff; }"
+    },
+    {
+      "name": "Waiting Chalk Button",
+      "kind": "button",
+      "refersTo": "button-primary-disabled",
+      "description": "The primary while it cannot act: an emptied dashed outline whose label prompts the next step.",
+      "html": "<svg width=\"0\" height=\"0\" style=\"position:absolute\" aria-hidden=\"true\"><filter id=\"ds-chalk-fill\" x=\"-4%\" y=\"-8%\" width=\"108%\" height=\"116%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.04\" numOctaves=\"3\" seed=\"7\" result=\"wobble\"/><feDisplacementMap in=\"SourceGraphic\" in2=\"wobble\" scale=\"6\" result=\"edge\"/><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.85\" numOctaves=\"2\" seed=\"11\"/><feColorMatrix values=\"0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 5 -0.75\" result=\"grit\"/><feComposite in=\"edge\" in2=\"grit\" operator=\"in\"/></filter></svg><div class=\"ds-wall\"><button class=\"ds-btn ds-btn-waiting\" type=\"button\" disabled>Tap a brick</button></div>",
+      "css": ".ds-wall { background: var(--soot); color: var(--chalk); font: 400 18px/1.3 var(--text); padding: 24px; } .ds-btn { min-height: 60px; min-width: 180px; padding: 8px 14px; position: relative; isolation: isolate; background: none; border: 0; cursor: pointer; font: 400 1.75rem/1 var(--text); transition: transform 110ms ease-out; } .ds-btn::before { content: \"\"; position: absolute; inset: 0; z-index: -1; border-radius: 10px 14px 9px 13px; transition: background-color 150ms ease-out; } .ds-btn:focus-visible { outline: 3px dashed var(--chalk); outline-offset: 3px; } .ds-btn:active:not(:disabled) { transform: scale(0.97); } .ds-btn-waiting { color: var(--chalk); cursor: default; } .ds-btn-waiting::before { border: 3px dashed var(--chalk-dim); filter: url(#ds-chalk-fill); }"
+    },
+    {
+      "name": "Chalk Outline Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "The secondary action: a gritty drawn outline.",
+      "html": "<svg width=\"0\" height=\"0\" style=\"position:absolute\" aria-hidden=\"true\"><filter id=\"ds-chalk-fill\" x=\"-4%\" y=\"-8%\" width=\"108%\" height=\"116%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.04\" numOctaves=\"3\" seed=\"7\" result=\"wobble\"/><feDisplacementMap in=\"SourceGraphic\" in2=\"wobble\" scale=\"6\" result=\"edge\"/><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.85\" numOctaves=\"2\" seed=\"11\"/><feColorMatrix values=\"0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 5 -0.75\" result=\"grit\"/><feComposite in=\"edge\" in2=\"grit\" operator=\"in\"/></filter></svg><div class=\"ds-wall\"><button class=\"ds-btn ds-btn-secondary\" type=\"button\">Reset</button></div>",
+      "css": ".ds-wall { background: var(--soot); color: var(--chalk); font: 400 18px/1.3 var(--text); padding: 24px; } .ds-btn { min-height: 60px; min-width: 180px; padding: 8px 14px; position: relative; isolation: isolate; background: none; border: 0; cursor: pointer; font: 400 1.75rem/1 var(--text); transition: transform 110ms ease-out; } .ds-btn::before { content: \"\"; position: absolute; inset: 0; z-index: -1; border-radius: 10px 14px 9px 13px; transition: background-color 150ms ease-out; } .ds-btn:focus-visible { outline: 3px dashed var(--chalk); outline-offset: 3px; } .ds-btn:active:not(:disabled) { transform: scale(0.97); } .ds-btn-secondary { color: var(--chalk); padding-inline: 8px; font-size: 1.5rem; } .ds-btn-secondary::before { border: 3px solid var(--chalk); filter: url(#ds-chalk-fill); } .ds-btn-secondary:hover::before { background-color: rgb(239 231 216 / 0.14); }"
+    },
+    {
+      "name": "Tool Button",
+      "kind": "button",
+      "refersTo": "tool-button",
+      "description": "A small drawn square holding an inline stroked icon, used for sound and rules.",
+      "html": "<svg width=\"0\" height=\"0\" style=\"position:absolute\" aria-hidden=\"true\"><filter id=\"ds-chalk-fill\" x=\"-4%\" y=\"-8%\" width=\"108%\" height=\"116%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.04\" numOctaves=\"3\" seed=\"7\" result=\"wobble\"/><feDisplacementMap in=\"SourceGraphic\" in2=\"wobble\" scale=\"6\" result=\"edge\"/><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.85\" numOctaves=\"2\" seed=\"11\"/><feColorMatrix values=\"0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 5 -0.75\" result=\"grit\"/><feComposite in=\"edge\" in2=\"grit\" operator=\"in\"/></filter></svg><div class=\"ds-wall\"><button class=\"ds-tool\" type=\"button\" aria-label=\"Rules and names\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8.500 8.800a3.600 3.600 0 1 1 5.400 3.300c-1.200.8-1.900 1.500-1.900 3\"/><path d=\"M12 19v.2\"/></svg></button></div>",
+      "css": ".ds-wall { background: var(--soot); color: var(--chalk); font: 400 18px/1.3 var(--text); padding: 24px; } .ds-tool { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; position: relative; isolation: isolate; background: transparent; border: 0; color: var(--chalk); cursor: pointer; transition: transform 120ms ease-out; } .ds-tool::before { content: \"\"; position: absolute; inset: 0; z-index: -1; border: 2.5px solid var(--chalk); border-radius: 8px 11px 7px 12px; filter: url(#ds-chalk-fill); transition: background-color 120ms ease-out; } .ds-tool:hover::before { background-color: rgb(239 231 216 / 0.14); } .ds-tool:focus-visible { outline: 3px dashed var(--chalk); outline-offset: 3px; } .ds-tool:active { transform: scale(0.94); } .ds-tool svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }"
+    },
+    {
+      "name": "Name Plate and Tally",
+      "kind": "custom",
+      "refersTo": "name-plate-turn",
+      "description": "A player name chalked on the wall, the turn stroke beneath it, and tally marks in fives.",
+      "html": "<svg width=\"0\" height=\"0\" style=\"position:absolute\" aria-hidden=\"true\"><filter id=\"ds-chalk\" x=\"-5%\" y=\"-10%\" width=\"110%\" height=\"120%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"2\" seed=\"4\" result=\"grain\"/><feDisplacementMap in=\"SourceGraphic\" in2=\"grain\" scale=\"1.1\"/></filter></svg><div class=\"ds-wall\"><button class=\"ds-plate ds-plate-turn\" type=\"button\"><span class=\"ds-plate-name\">Mara</span><svg class=\"ds-tally\" width=\"100\" height=\"28\" aria-hidden=\"true\"><path d=\"M2 3L2 25M11 3L11 25M20 3L20 25M29 3L29 25M1 22L35 5M46 3L46 25M55 3L55 25\"/></svg></button></div>",
+      "css": ".ds-wall { background: var(--soot); color: var(--chalk); font: 400 18px/1.3 var(--text); padding: 24px; } .ds-plate { display: flex; flex-direction: column; align-items: flex-start; min-height: 62px; padding: 4px 8px 4px 0; background: none; border: 0; text-align: left; position: relative; cursor: pointer; } .ds-plate-name { font: 400 1.3125rem/1.2 var(--text); color: var(--chalk-dim); transition: color 180ms ease-out; } .ds-plate::before { content: \"\"; position: absolute; left: 0; top: 29px; width: min(100%, 9ch); height: 3px; background: var(--chalk); border-radius: 3px 1px 2px 3px; transform: scaleX(0) rotate(-0.7deg); transform-origin: left; transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-plate-turn .ds-plate-name, .ds-plate:hover .ds-plate-name { color: var(--chalk); } .ds-plate-turn::before { transform: scaleX(1) rotate(-0.7deg); } .ds-plate:focus-visible { outline: 3px dashed var(--chalk); outline-offset: 3px; } .ds-tally { display: block; height: 28px; margin-top: 5px; filter: url(#ds-chalk); } .ds-tally path { fill: none; stroke: var(--chalk); stroke-width: 2.8; stroke-linecap: round; }"
+    },
+    {
+      "name": "Count Badge",
+      "kind": "chip",
+      "refersTo": "count-badge",
+      "description": "The running total above the chosen pile: a soot numeral knocked out of a solid chalk block.",
+      "html": "<svg width=\"0\" height=\"0\" style=\"position:absolute\" aria-hidden=\"true\"><filter id=\"ds-chalk-solid\" x=\"-4%\" y=\"-8%\" width=\"108%\" height=\"116%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.04\" numOctaves=\"3\" seed=\"7\" result=\"wobble\"/><feDisplacementMap in=\"SourceGraphic\" in2=\"wobble\" scale=\"6\" result=\"edge\"/><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.012 0.55\" numOctaves=\"2\" seed=\"3\"/><feColorMatrix values=\"0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0.5\" result=\"streak\"/><feComposite in=\"edge\" in2=\"streak\" operator=\"in\"/></filter></svg><div class=\"ds-wall\"><span class=\"ds-badge\">2</span></div>",
+      "css": ".ds-wall { background: var(--soot); color: var(--chalk); font: 400 18px/1.3 var(--text); padding: 24px; } .ds-badge { display: inline-block; min-width: 56px; padding: 0 12px; position: relative; isolation: isolate; color: var(--soot); font: 400 3rem/1.08 var(--text); text-align: center; font-variant-numeric: tabular-nums; } .ds-badge::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: var(--chalk); border-radius: 12px 16px 11px 15px; filter: url(#ds-chalk-solid); }"
+    },
+    {
+      "name": "Name Field",
+      "kind": "input",
+      "refersTo": "name-field",
+      "description": "A chalk underline to write above, with an always-visible label and an ember caret.",
+      "html": "<div class=\"ds-wall\"><label class=\"ds-field\">First player's name<input class=\"ds-input\" type=\"text\" placeholder=\"Player 1\" /></label></div>",
+      "css": ".ds-wall { background: var(--soot); color: var(--chalk); font: 400 18px/1.3 var(--text); padding: 24px; } .ds-field { display: block; font-size: 1.125rem; } .ds-input { display: block; width: 100%; min-height: 48px; margin-top: 4px; padding: 8px 12px; background: transparent; border: 0; border-bottom: 3px solid var(--chalk); border-radius: 0; color: var(--chalk); font: 400 1.375rem/1.3 var(--text); caret-color: var(--ember); } .ds-input::placeholder { color: #a79d8d; } .ds-input:focus { outline: 2px dashed var(--chalk); outline-offset: 2px; }"
+    },
+    {
+      "name": "Flat Brick",
+      "kind": "custom",
+      "refersTo": "flat-brick",
+      "description": "The no-WebGL fallback brick, resting and chosen. The 3D fired brick itself is rendered by the scene and cannot be expressed as a snippet.",
+      "html": "<div class=\"ds-wall\"><div class=\"ds-stack\"><button class=\"ds-brick\" type=\"button\" aria-pressed=\"true\" aria-label=\"Chosen brick\"></button><button class=\"ds-brick\" type=\"button\" aria-pressed=\"false\" aria-label=\"Brick\"></button></div></div>",
+      "css": ".ds-wall { background: var(--soot); color: var(--chalk); font: 400 18px/1.3 var(--text); padding: 24px; } .ds-stack { display: flex; flex-direction: column; gap: 4px; width: 120px; } .ds-brick { height: 44px; padding: 0; background: var(--clay); border: 2px solid var(--chalk); border-radius: 6px; cursor: pointer; } .ds-brick[aria-pressed=\"true\"] { background: var(--ember); outline: 3px dashed var(--chalk); outline-offset: 2px; } .ds-brick:focus-visible { outline: 3px solid var(--ember); outline-offset: 1px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Brickyard at Dusk",
+    "overview": "This is a kiln yard at the end of the day, not a game interface. Fired clay bricks stand in real-time 3D on packed earth in front of a soot-blackened wall, one low warm sun rakes across them from the right, and everything that has to be read is chalked by hand. The bricks are the only things with mass; the interface is what someone scrawled nearby.\n\nDensity is low and the bricks hold most of the screen. Text sits directly on the wall with no panel behind it. The only raised surfaces in the world are physical bricks, and the only shadows are the ones the sun casts. The mood is warm, dusty and rude: heavy objects land with a thud, and when the round ends the last brick grows, sprouts mismatched goggly eyes and blows a raspberry.\n\nThe pastel, rounded casual-puzzle screen, with its cards and pill buttons, is the confirmed rejection. Materials are painted procedurally at load, so the yard itself ships no raster files.",
+    "keyCharacteristics": [
+      "Real-time 3D clay bricks on a dark ground, lit by a warm sun from the right and a cool dusk sky",
+      "Hand-written chalk type on the wall, with no containers behind it",
+      "Chalk controls that read as drawn: filled block for the primary, outline for the secondary",
+      "Ember reserved for what is currently chosen",
+      "Motion made of weight and gravity, placed directly under reduced motion",
+      "A complete flat fallback in the same palette when WebGL is unavailable"
+    ],
+    "rules": [
+      {
+        "name": "The Ember Means Chosen Rule",
+        "body": "Ember marks the current selection and the point of action: the chosen pile, its bricks, a focused brick, the caret. It never decorates, and it never appears on a heading or a resting control.",
+        "section": "colors"
+      },
+      {
+        "name": "The Raspberry Rule",
+        "body": "Pink belongs to the last brick's tongue. It is the one colour outside the yard's palette, and it appears only at the moment of mockery.",
+        "section": "colors"
+      },
+      {
+        "name": "The Heavy Stick Rule",
+        "body": "Cabin Sketch is for the title, the turn line, the verdict and the dialog heading. Everything anyone presses, counts or reads at length is Patrick Hand.",
+        "section": "typography"
+      },
+      {
+        "name": "The Plain Hand Rule",
+        "body": "Hierarchy comes from size and the two hands alone. There is no uppercase styling, tracking, or added weight anywhere in the system.",
+        "section": "typography"
+      },
+      {
+        "name": "The Right-Hand Sun Rule",
+        "body": "The sun is always on the right, so shadows always fall to the left. The tallest stack stands on the right, which throws its shadow across the shorter ones and along the ground. Nothing in the yard gets a second shadow-casting light.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Only Shadows Rule",
+        "body": "A shadow in this world is cast by the sun onto something. If an element is not a 3D object, it does not get a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do write text straight onto the wall in chalk, or knock it out in soot from a filled chalk block.",
+      "Do keep the primary as a filled chalk block and the secondary as a chalk outline, with drawn unequal corners (see the `rounded` tokens).",
+      "Do run drawn blocks and outlines through the chalk filters, so they read as made by hand.",
+      "Do place every new 3D object inside the existing lighting rig, with the sun on the right.",
+      "Do make everything that falls land with weight: gravity, a thud, dust. Under reduced motion, place it directly and skip the dust, bounce and shake.",
+      "Do signal selection and turn in at least two ways, such as a stroke, a mark, a position change or a dashed ring alongside any colour change.",
+      "Do paint new yard materials procedurally onto canvas, in keeping with the clay, wall and ground textures.",
+      "Do keep the name reading \"2-4-6 by A.R.C. Alberto\", and keep the bricks 3D wherever WebGL exists."
+    ],
+    "donts": [
+      "Don't put text or controls on a card, panel, or any raised container.",
+      "Don't use pill shapes or uniform rounded corners on drawn chalk controls.",
+      "Don't fill a control, block or panel with a gradient. Gradients in this world are limited to the soot legibility shade and to painting texture and dust inside the yard's materials.",
+      "Don't use glass, backdrop blur, or a CSS shadow on anything.",
+      "Don't move the sun to the left or add a second shadow-casting light.",
+      "Don't use ember for headings, resting controls, or decoration.",
+      "Don't use the raspberry pink anywhere but the last brick's face.",
+      "Don't set Cabin Sketch on buttons, labels, or body copy.",
+      "Don't add uppercase styling or letter-spacing."
+    ]
+  }
+}
