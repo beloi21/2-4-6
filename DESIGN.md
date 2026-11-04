@@ -227,6 +227,10 @@ The pile counts on the ground and the maker's mark on the bricks are type too: P
 
 **The Plain Hand Rule.** Hierarchy comes from size and the two hands alone. There is no uppercase styling, tracking, or added weight anywhere in the system.
 
+### Stone-and-Glass Lettering
+
+The title, byline, ground counts and the lose-screen LOSER are live 3D glyphs (src/glyphs.js): Archivo Black shapes fractured down the middle into rough stone (left) and blue glass #1f6fff (right), with lightning in the break on larger words. Lightning flickers on moves, new rounds and the loss, and rests faint in between. A chosen pile's count glows ember. Everything else stays chalk. The style is inspired by Frmt_ Alphabet [Rock & Glass] by BL/S (CC BY 4.0), credited in the rules screen and README; none of its artwork ships.
+
 ## Layout
 
 The screen is a full-bleed fixed stage with no scrolling. The 3D canvas fills the viewport, and chalk overlays sit on it in a centred column up to 720px wide: title, names, tallies and turn line against the top, controls against the bottom. The camera then fits the three stacks into the space those overlays leave, and slides the picture down to stand just above the controls when there is height to spare.

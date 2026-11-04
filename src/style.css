@@ -466,8 +466,36 @@ dialog p {
 
 /* The verdict gets scrawled big across the wall. */
 .is-over #turn {
-  font-size: clamp(2.5rem, 12vw, 4rem);
-  line-height: 1;
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  line-height: 1.05;
+}
+
+/* In 3D the name stands on the wall in stone and glass, so the chalk heading is for
+   screen readers. It comes back in the flat fallback. */
+body:not(.no-3d) h1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+body:not(.no-3d) .brand {
+  justify-content: flex-end;
+}
+body:not(.no-3d) .score {
+  margin-top: -44px;
+  padding-right: 108px;
+}
+
+.credit {
+  margin-top: 14px;
+  color: var(--chalk-dim);
+  font-size: 1rem;
+}
+.credit a {
+  color: inherit;
+  text-underline-offset: 3px;
 }
 
 /* ------- Short landscape: the chalk moves beside the stacks ------- */

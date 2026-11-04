@@ -336,6 +336,7 @@ try {
     reducedMotion,
     onThud: (s) => sound.thud(s),
     onTongue: () => sound.raspberry(),
+    onStrike: () => sound.crack(),
     onFrame: () => {
       placeTargets();
       placeBadge();

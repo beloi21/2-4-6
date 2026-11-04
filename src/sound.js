@@ -68,6 +68,13 @@ export function createSound(initiallyOn) {
       const ac = context();
       if (ac) burst(ac, { freq: 480, q: 0.6, gain: 0.16, length: 0.24 });
     },
+    /** Lightning, kept short and well back in the mix. */
+    crack() {
+      const ac = context();
+      if (!ac) return;
+      burst(ac, { freq: 3200, q: 0.5, gain: 0.09, length: 0.07 });
+      burst(ac, { freq: 240, q: 0.4, gain: 0.12, length: 0.34, delay: 0.03 });
+    },
     /** The rude noise. */
     raspberry() {
       const ac = context();

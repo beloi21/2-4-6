@@ -5,11 +5,11 @@ import {
   clayTextures,
   wallTextures,
   groundTextures,
-  chalkNumber,
   chalkMark,
   dustSprite,
 } from './textures.js';
 import { createFace } from './face.js';
+import { createGlyphs } from './glyphs.js';
 
 const BRICK = { w: 1.16, h: 0.5, d: 0.56 };
 const PILE_X = [-1.42, 0, 1.42];
@@ -21,12 +21,9 @@ const VIEW_H = 4.5; // and upward, with room for the total above the tallest
 const LOOK_AT_Y = 1.6;
 const DUST_COUNT = 64;
 
-const CHALK = 0xefe7d8;
-const EMBER = 0xe8935a;
-
 const restY = (index) => BRICK.h / 2 + index * BRICK.h;
 
-export function createScene(canvas, { reducedMotion, onThud, onTongue, onFrame }) {
+export function createScene(canvas, { reducedMotion, onThud, onTongue, onStrike, onFrame }) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.shadowMap.enabled = true;
@@ -103,18 +100,44 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onFrame }
   backWall.receiveShadow = true;
   scene.add(backWall);
 
-  // Chalked pile counts on the ground in front of each stack.
-  const numbers = PILE_X.map((x) => {
-    const { texture, draw } = chalkNumber();
-    const mesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.34, 1.34),
-      new THREE.MeshBasicMaterial({ map: texture, color: CHALK, transparent: true, depthWrite: false, toneMapped: false, fog: false, opacity: 0.95 }),
-    );
-    mesh.rotation.x = -Math.PI / 2;
-    mesh.position.set(x, 0.006, 0.86);
-    scene.add(mesh);
-    return { mesh, draw };
+  // Stone-and-glass lettering: the name on the wall, and each pile's count on the ground.
+  const glyphs = createGlyphs(renderer);
+
+  const WALL_Z = backWall.position.z + 0.2;
+  const title = glyphs.makeWord('2-4-6', { size: 0.64, bolts: true });
+  title.group.position.set(-1.04, 2.82, WALL_Z);
+  scene.add(title.group);
+
+  const byline = glyphs.makeWord('A.R.C. ALBERTO', { size: 0.15, gap: 0.028, space: 0.07 });
+  byline.group.position.set(-1.04, 2.5, WALL_Z);
+  scene.add(byline.group);
+
+  const loser = glyphs.makeWord('LOSER', { size: 0.86, gap: 0.09, bolts: true });
+  loser.group.position.set(0, 2.2, WALL_Z);
+  loser.group.visible = false;
+  scene.add(loser.group);
+
+  const counts = PILE_X.map((x) => {
+    const holder = new THREE.Group();
+    holder.position.set(x, 0.05, 1.5);
+    holder.rotation.x = -0.98;
+    scene.add(holder);
+    return { holder, word: null, value: null, chosen: false };
   });
+
+  function showTitle(on) {
+    title.group.visible = on;
+    byline.group.visible = on;
+    loser.group.visible = !on;
+    counts.forEach((c) => (c.holder.visible = on));
+  }
+
+  function strike(word) {
+    if (reducedMotion) return;
+    word.strike();
+    onStrike?.();
+    wake();
+  }
 
   // Dust
   const dustPositions = new Float32Array(DUST_COUNT * 3);
@@ -267,7 +290,8 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onFrame }
     // standing just above the controls when there's height to spare.
     const pxPerUnit = height / (2 * distance * tanV);
     const spare = free.h / pxPerUnit - VIEW_H;
-    groundShift = Math.max(0, spare / 2) * pxPerUnit;
+    // Leaves room below the stacks for the counts on the ground.
+    groundShift = Math.max(0, spare / 2 - 0.5) * pxPerUnit;
     // The last brick takes the middle of the stage.
     stageShift = -(LOOK_AT_Y - (BRICK.h * HERO_SCALE) / 2) * pxPerUnit;
     viewShift = hero ? stageShift : groundShift;
@@ -279,7 +303,14 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onFrame }
   }
 
   function setPileCount(pile, count) {
-    numbers[pile].draw(count);
+    const slot = counts[pile];
+    if (slot.value !== count) {
+      if (slot.word) slot.holder.remove(slot.word.group);
+      slot.word = glyphs.makeWord(String(count), { size: 0.66, depth: 0.12 });
+      slot.word.setChosen(slot.chosen);
+      slot.holder.add(slot.word.group);
+      slot.value = count;
+    }
     wake();
   }
 
@@ -291,7 +322,8 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onFrame }
       face.hide();
     }
     sunTarget = SUN_DAY;
-    numbers.forEach((n) => (n.mesh.visible = true));
+    showTitle(true);
+    strike(title);
     piles.forEach((pile, p) => {
       setPileCount(p, pile.length);
       pile.forEach((id, i) => {
@@ -319,13 +351,17 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onFrame }
         brick.mesh.position.z = brick.z;
       }
     }
-    numbers.forEach((n, p) => n.mesh.material.color.set(p === chosen ? EMBER : CHALK));
+    counts.forEach((c, p) => {
+      c.chosen = p === chosen;
+      c.word?.setChosen(c.chosen);
+    });
     wake();
   }
 
   /** Hurl `ids` out of the yard. `heroId`, when given, stays to mock the loser. */
   function removeBricks(ids, heroId = null) {
     const removed = ids.map((id) => bricks.get(id)).filter(Boolean);
+    if (!heroId) strike(title);
     removed.forEach((brick, i) => {
       if (brick.id === heroId) return;
       if (reducedMotion) {
@@ -369,7 +405,6 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onFrame }
       hero.mesh.material.emissiveIntensity = 0;
       hero.mark.visible = false;
       hero.mesh.add(face.group);
-      numbers.forEach((n) => (n.mesh.visible = false));
       if (reducedMotion) {
         viewShift = stageShift;
         applyView();
@@ -386,6 +421,7 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onFrame }
     face.show(true);
     face.update(0, heroLast, true);
     sun.intensity = sunTarget;
+    showTitle(false);
     onTongue?.();
   }
 
@@ -413,6 +449,8 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onFrame }
       puff(0, 0.04, 0.5, 26);
       shake = 0.14;
       face.show();
+      showTitle(false);
+      strike(loser);
     }
     const t = heroClock - LAND;
     const hop = Math.abs(Math.sin(t * 4.6));
@@ -523,6 +561,8 @@ export function createScene(canvas, { reducedMotion, onThud, onTongue, onFrame }
       busy = true;
     }
     if (updateDust(dt)) busy = true;
+    if (title.update(dt)) busy = true;
+    if (loser.update(dt)) busy = true;
 
     const shiftTarget = hero ? stageShift : groundShift;
     if (viewReady && Math.abs(viewShift - shiftTarget) > 0.5) {

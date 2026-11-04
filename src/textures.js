@@ -154,26 +154,6 @@ export function groundTextures() {
   };
 }
 
-/** A number chalked on the ground. The canvas is reused when the count changes. */
-export function chalkNumber() {
-  const [c, ctx] = canvas(256, 256);
-  const texture = toTexture(c, { color: true });
-  const draw = (value) => {
-    ctx.clearRect(0, 0, 256, 256);
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '400 240px "Patrick Hand", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(String(value), 128, 136);
-    // Rub some of it out so it reads as chalk dragged across rough ground.
-    ctx.globalCompositeOperation = 'destination-out';
-    speckle(ctx, 256, 256, 650, 1.2, ['rgba(0,0,0,.9)']);
-    ctx.globalCompositeOperation = 'source-over';
-    texture.needsUpdate = true;
-  };
-  return { texture, draw };
-}
-
 /** A rough chalk loop scrawled around a chosen brick's face. */
 export function chalkMark() {
   const W = 512;

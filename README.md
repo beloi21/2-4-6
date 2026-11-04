@@ -26,4 +26,6 @@ npm run dev
 
 `npm test` checks the rules. `npm run build` makes the site in `dist/`. Pushing to `main` deploys to GitHub Pages.
 
-Built with [Three.js](https://threejs.org/). All bricks, walls and sounds are generated in the browser. Fonts are Cabin Sketch and Patrick Hand, from Google Fonts under the SIL Open Font License.
+The stone-and-glass lettering is modelled live in the browser, inspired by [Frmt_ Alphabet [Rock & Glass]](https://www.figma.com/community/file/1545706190975560906/frmt-alphabet-rock-glass) by BL/S (CC BY 4.0). None of that set's artwork is included. Letter shapes come from Archivo Black (SIL Open Font License).
+
+Built with [Three.js](https://threejs.org/). All bricks, walls and sounds are generated in the browser. The chalk fonts are Cabin Sketch and Patrick Hand, also under the SIL Open Font License.
