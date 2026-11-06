@@ -239,6 +239,71 @@ h1 small {
   font: 400 24px var(--text);
 }
 
+.turn-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.turn-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The turn clock: chalk ring that wears away, with the seconds inside. */
+#clock {
+  flex: none;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  margin-top: 6px;
+}
+.is-over #clock {
+  display: none;
+}
+#clock svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+  filter: url(#chalk);
+}
+#clock circle {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.clock-track {
+  stroke: rgb(239 231 216 / 0.18);
+}
+.clock-ring {
+  stroke: var(--chalk);
+  stroke-dasharray: 1;
+  transition: stroke-dashoffset 250ms linear, stroke 200ms ease-out;
+}
+#clock-num {
+  font: 400 1.625rem/1 var(--text);
+  font-variant-numeric: tabular-nums;
+  transition: color 200ms ease-out;
+}
+#clock.is-low .clock-ring {
+  stroke: var(--ember);
+}
+#clock.is-low #clock-num {
+  color: var(--ember);
+}
+#clock.is-critical {
+  animation: clock-beat 1s ease-out infinite;
+}
+@keyframes clock-beat {
+  from {
+    transform: scale(1.14);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 #turn {
   margin: 6px 0 0;
   font: 700 clamp(1.75rem, 8vw, 2.5rem) / 1.08 var(--display);
@@ -329,11 +394,50 @@ h1 small {
   inset: auto 0 0;
   z-index: 10;
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 12px;
+  grid-template-columns: 1fr;
+  gap: 8px;
   max-width: 720px;
   margin: 0 auto;
   padding: 10px var(--gap) max(16px, env(safe-area-inset-bottom));
+}
+
+.aux {
+  display: flex;
+  gap: 8px;
+}
+.aux .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 44px;
+  padding: 4px;
+  color: var(--chalk);
+  font-size: 1.25rem;
+}
+.aux .btn::before {
+  border: 2.5px solid var(--chalk);
+}
+.aux .btn[hidden] {
+  display: none;
+}
+#surrender.is-confirming {
+  color: var(--ember);
+}
+#surrender.is-confirming::before {
+  border-color: var(--ember);
+}
+
+/* Round over: back to one row, leaving the stage to the last brick. */
+.is-over .controls {
+  grid-template-columns: 1fr 2fr;
+  gap: 12px;
+}
+.is-over .aux {
+  display: contents;
+}
+.is-over .aux #secondary {
+  min-height: 60px;
+  padding-inline: 8px;
+  font-size: 1.5rem;
 }
 
 .btn {
@@ -359,16 +463,6 @@ h1 small {
   transform: scale(0.97);
 }
 
-#secondary {
-  color: var(--chalk);
-  padding-inline: 8px;
-  font-size: 1.5rem;
-}
-
-#secondary::before {
-  border: 3px solid var(--chalk);
-}
-
 #primary {
   color: var(--soot);
   font-size: 2.125rem;
@@ -391,7 +485,7 @@ h1 small {
   #primary:not(:disabled):hover::before {
     background: #fff;
   }
-  #secondary:hover::before,
+  .aux .btn:hover::before,
   .tool:hover::before {
     background-color: rgb(239 231 216 / 0.14);
   }
@@ -512,8 +606,17 @@ body:not(.no-3d) .score {
     width: 38%;
     margin: 0;
     padding-left: max(16px, env(safe-area-inset-left));
+  }
+  .is-over .controls {
     grid-template-columns: 1fr 1.5fr;
     gap: 8px;
+  }
+  #clock {
+    width: 46px;
+    height: 46px;
+  }
+  #clock-num {
+    font-size: 1.3125rem;
   }
   h1 {
     font-size: 2.1rem;
@@ -542,8 +645,15 @@ body:not(.no-3d) .score {
     font-size: 1.5rem;
   }
   #primary:disabled,
-  #secondary {
+  .is-over .aux #secondary {
     font-size: 1.25rem;
+  }
+  .is-over .aux #secondary {
+    min-height: 48px;
+  }
+  .aux .btn {
+    min-height: 40px;
+    font-size: 1.0625rem;
   }
   .shade {
     inset: 0 auto 0 0;
@@ -579,7 +689,7 @@ body:not(.no-3d) .score {
 }
 .no-3d #piles {
   position: fixed;
-  inset: 240px 0 100px;
+  inset: 240px 0 136px;
   display: flex;
   justify-content: center;
   align-items: flex-end;

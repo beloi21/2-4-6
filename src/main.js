@@ -1,12 +1,14 @@
 import '@fontsource/cabin-sketch/700.css';
 import '@fontsource/patrick-hand/400.css';
 import './style.css';
-import { createRound, toggleBrick, removeSelected, clearSelection } from './game.js';
+import { createRound, toggleBrick, removeSelected, forfeit, canSwapStarter, swapStarter } from './game.js';
 import { createScene } from './scene.js';
 import { createSound } from './sound.js';
 
 const STORE_KEY = '2-4-6';
 const DEFAULT_NAMES = ['Player 1', 'Player 2'];
+const TURN_MS = 30000;
+const LAST_BRICK_PAUSE_MS = 700; // A beat to see the throw before the last brick pounces.
 const $ = (id) => document.getElementById(id);
 
 function load() {
@@ -40,6 +42,11 @@ const ui = {
   sub: $('turn-sub'),
   primary: $('primary'),
   secondary: $('secondary'),
+  surrender: $('surrender'),
+  swap: $('swap'),
+  clock: $('clock'),
+  clockNum: $('clock-num'),
+  clockRing: $('clock-ring'),
   badge: $('badge'),
   badgeNum: $('badge-num'),
   status: $('status'),
@@ -114,7 +121,15 @@ function setPrimary(label, disabled) {
 }
 
 let confirmingClear = 0;
-let needsLayout = false;
+let confirmingSurrender = 0;
+let pounce = 0;
+
+const VERDICTS = {
+  last: (loser) => `${loser} took the last brick!`,
+  forced: (loser) => `${loser} is stuck with the last brick!`,
+  surrender: (loser) => `${loser} surrendered!`,
+  timeout: (loser) => `${loser} ran out of time!`,
+};
 
 function render() {
   const over = round.loser !== null;
@@ -128,7 +143,7 @@ function render() {
   if (over) {
     const loser = name(round.loser);
     const winner = name(1 - round.loser);
-    ui.turn.textContent = `${loser} took the last brick!`;
+    ui.turn.textContent = VERDICTS[round.reason](loser);
     ui.sub.textContent = `${winner} wins.`;
     setPrimary('Play again', false);
     ui.secondary.textContent = 'Clear score';
@@ -139,8 +154,12 @@ function render() {
       : 'Take from one pile. Last brick loses.';
     setPrimary(count ? `Remove ${count}` : 'Tap a brick', count === 0);
     ui.secondary.textContent = 'Reset';
+    ui.surrender.setAttribute('aria-label', `${who} surrenders`);
+    ui.swap.setAttribute('aria-label', `Swap first move to ${name(1 - round.current)}`);
   }
   confirmingClear = 0;
+  ui.surrender.hidden = over;
+  ui.swap.hidden = !canSwapStarter(round);
 
   for (const [id, button] of buttons) {
     const pile = round.piles.findIndex((list) => list.includes(id));
@@ -234,41 +253,135 @@ function remove() {
     /* Vibration is a bonus. */
   }
 
-  const lost = round.loser !== null;
-  if (lost) {
-    store.wins[1 - round.loser] += 1;
-    store.starter = 1 - round.starter;
-    save();
-    renderScore();
-    document.body.classList.add('is-over');
-    needsLayout = true;
+  stage?.setSelected([]);
+  if (round.reason === 'last') {
+    stage?.removeBricks(taken, taken[taken.length - 1]);
+  } else {
+    stage?.removeBricks(taken);
+  }
+  stage?.setPileCount(pile, round.piles[pile].length);
+
+  if (round.loser === null) {
+    resetSurrender();
+    startClock();
+    render();
+    announce(`${name(mover)} removed ${taken.length}. ${round.piles.map((p) => p.length).join(', ')} left. ${name(round.current)}'s turn.`);
+    ui.primary.blur();
+    return;
   }
 
-  stage?.removeBricks(taken, lost ? taken[taken.length - 1] : null);
-  stage?.setPileCount(pile, round.piles[pile].length);
-  if (lost && !stage) ui.face.removeAttribute('hidden');
-  render();
-  if (needsLayout) relayout();
-  needsLayout = false;
-
+  if (round.reason === 'forced') {
+    const lastBrick = round.piles.flat()[0];
+    pounce = window.setTimeout(() => stage?.removeBricks([], lastBrick), LAST_BRICK_PAUSE_MS);
+  }
+  finishRound();
   announce(
-    lost
-      ? `${name(mover)} took the last brick and loses. ${name(1 - mover)} wins.`
-      : `${name(mover)} removed ${taken.length}. ${round.piles.map((p) => p.length).join(', ')} left. ${name(round.current)}'s turn.`,
+    round.reason === 'last'
+      ? `${name(round.loser)} took the last brick and loses. ${name(1 - round.loser)} wins.`
+      : `One brick left. ${name(round.loser)} is stuck with it and loses. ${name(1 - round.loser)} wins.`,
   );
-  if (!lost) ui.primary.blur();
+}
+
+/** The player to move loses now: the yard clears and one brick stays to mock them. */
+function giveUp(reason) {
+  const standing = round.piles.flat();
+  const tallest = round.piles.reduce((a, b) => (b.length > a.length ? b : a));
+  round = forfeit(round, reason);
+  sound.whoosh();
+  stage?.setSelected([]);
+  stage?.removeBricks(standing, tallest[tallest.length - 1]);
+  round.piles.forEach((_, p) => stage?.setPileCount(p, 0));
+  finishRound();
+  const loser = name(round.loser);
+  const winner = name(1 - round.loser);
+  announce(reason === 'timeout' ? `${loser} ran out of time and loses. ${winner} wins.` : `${loser} surrendered. ${winner} wins.`);
+}
+
+function finishRound() {
+  store.wins[1 - round.loser] += 1;
+  store.starter = 1 - round.starter;
+  save();
+  renderScore();
+  resetSurrender();
+  document.body.classList.add('is-over');
+  if (!stage) ui.face.removeAttribute('hidden');
+  render();
+  relayout();
 }
 
 function startRound() {
+  window.clearTimeout(pounce);
   round = createRound(store.starter);
   document.body.classList.remove('is-over');
   ui.face.setAttribute('hidden', '');
   buildBrickButtons();
   stage?.newRound(round.piles);
+  resetSurrender();
+  startClock();
   render();
   relayout();
   announce(`New round. ${name(round.current)} goes first.`);
 }
+
+function swapFirst() {
+  round = swapStarter(round);
+  store.starter = round.starter;
+  save();
+  sound.tick();
+  stage?.setSelected(round.selected);
+  resetSurrender();
+  startClock();
+  render();
+  announce(`${name(round.current)} goes first.`);
+}
+
+/* ------- Turn clock ------- */
+
+let timeLeft = TURN_MS;
+let lastTick = performance.now();
+let shownSeconds = null;
+// Nobody should lose to a page they haven't touched yet: the first turn's clock
+// waits for the first tap or key after loading.
+let clockArmed = false;
+
+function startClock() {
+  timeLeft = TURN_MS;
+  shownSeconds = null;
+  renderClock();
+}
+
+function renderClock() {
+  ui.clockRing.style.strokeDashoffset = String(1 - Math.max(0, timeLeft) / TURN_MS);
+  const seconds = Math.max(0, Math.ceil(timeLeft / 1000));
+  if (seconds === shownSeconds) return;
+  const counting = shownSeconds !== null;
+  shownSeconds = seconds;
+  ui.clockNum.textContent = String(seconds);
+  ui.clock.classList.toggle('is-low', seconds <= 10);
+  ui.clock.classList.toggle('is-critical', seconds <= 5);
+  if (!counting) return;
+  if (seconds > 0 && seconds <= 5) sound.tick();
+  if (seconds === 10 || seconds === 5) announce(`${name(round.current)}, ${seconds} seconds left.`);
+}
+
+function tickClock() {
+  const now = performance.now();
+  // Capped, so a stalled or sleeping device doesn't eat a player's turn.
+  const elapsed = Math.min(1000, now - lastTick);
+  lastTick = now;
+  if (!clockArmed || round.loser !== null || document.hidden || ui.dialog.open) return;
+  timeLeft -= elapsed;
+  renderClock();
+  if (timeLeft <= 0) giveUp('timeout');
+}
+
+const armClock = () => {
+  clockArmed = true;
+};
+for (const type of ['pointerdown', 'keydown', 'click']) {
+  document.addEventListener(type, armClock, { capture: true });
+}
+window.setInterval(tickClock, 250);
 
 function clearScore() {
   store.wins = [0, 0];
@@ -303,6 +416,27 @@ ui.secondary.addEventListener('click', () => {
   ui.secondary.textContent = 'Clear score';
   clearScore();
 });
+
+function resetSurrender() {
+  window.clearTimeout(confirmingSurrender);
+  confirmingSurrender = 0;
+  ui.surrender.textContent = 'Surrender';
+  ui.surrender.classList.remove('is-confirming');
+}
+
+// Losing the round on a stray tap would sting, so it takes a second one.
+ui.surrender.addEventListener('click', () => {
+  if (round.loser !== null) return;
+  if (!confirmingSurrender) {
+    ui.surrender.textContent = 'Really?';
+    ui.surrender.classList.add('is-confirming');
+    confirmingSurrender = window.setTimeout(resetSurrender, 3000);
+    return;
+  }
+  giveUp('surrender');
+});
+
+ui.swap.addEventListener('click', swapFirst);
 
 function openSetup() {
   ui.inputs.forEach((input, p) => {

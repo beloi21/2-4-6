@@ -11,7 +11,11 @@ Three piles hold 2, 4 and 6 bricks. On your turn:
 1. Tap the bricks you want. Take as many as you like, but only from one pile. The total shows above the pile.
 2. Press **Remove**, then pass the device to the other player.
 
-Whoever takes the last brick loses, and that brick lets them know about it.
+Whoever takes the last brick loses, and that brick lets them know about it. Leave your opponent just one brick and they lose on the spot.
+
+Each turn has a 30-second clock. Run out and you lose the round. The clock pauses while the rules are open or the app is in the background, and the first turn after loading waits for the first tap.
+
+**Swap first** changes who starts, until the first brick is taken. **Surrender** (tap twice) ends the round as a loss.
 
 Wins are tallied on the wall between rounds and the starting player swaps each round. **Reset** starts the round again and keeps the score. After a round, **Clear score** wipes the tally.
 

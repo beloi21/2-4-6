@@ -5,6 +5,9 @@ import {
   toggleBrick,
   removeSelected,
   bricksLeft,
+  forfeit,
+  canSwapStarter,
+  swapStarter,
 } from '../src/game.js';
 
 function take(round, ...ids) {
@@ -56,15 +59,54 @@ test('any bricks can be taken, not only from the top', () => {
   assert.deepEqual(round.piles[1], ['p1b0', 'p1b2', 'p1b3']);
 });
 
-test('the player who takes the last brick loses', () => {
+test('whoever is left facing one brick loses at once', () => {
   let round = createRound();
   round = take(round, 'p2b0', 'p2b1', 'p2b2', 'p2b3', 'p2b4', 'p2b5'); // P1
   round = take(round, 'p1b0', 'p1b1', 'p1b2', 'p1b3'); // P2
-  round = take(round, 'p0b0'); // P1
   assert.equal(round.loser, null);
-  round = take(round, 'p0b1'); // P2 takes the last one
+  round = take(round, 'p0b0'); // P1 leaves one brick for P2
   assert.equal(round.loser, 1);
-  assert.equal(bricksLeft(round), 0);
+  assert.equal(round.reason, 'forced');
+  assert.equal(round.current, 1);
+  assert.deepEqual(round.piles[0], ['p0b1']);
+});
+
+test('one brick in each of two piles is not yet forced', () => {
+  let round = createRound();
+  round = take(round, 'p2b0', 'p2b1', 'p2b2', 'p2b3', 'p2b4', 'p2b5');
+  round = take(round, 'p1b0', 'p1b1', 'p1b2');
+  round = take(round, 'p0b0');
+  assert.equal(bricksLeft(round), 2);
+  assert.equal(round.loser, null);
+});
+
+test('surrender and timeout make the player to move lose', () => {
+  const start = toggleBrick(take(createRound(), 'p2b0'), 'p1b0');
+  for (const reason of ['surrender', 'timeout']) {
+    const round = forfeit(start, reason);
+    assert.equal(round.loser, 1);
+    assert.equal(round.reason, reason);
+    assert.deepEqual(round.selected, []);
+    assert.equal(bricksLeft(round), 11);
+  }
+});
+
+test('a finished round cannot be forfeited again', () => {
+  const over = forfeit(createRound(), 'surrender');
+  assert.equal(forfeit({ ...over, current: 1 }, 'timeout').loser, 0);
+});
+
+test('the starter can be swapped only before the first brick is taken', () => {
+  const round = toggleBrick(createRound(0), 'p1b0');
+  assert.equal(canSwapStarter(round), true);
+  const swapped = swapStarter(round);
+  assert.equal(swapped.current, 1);
+  assert.equal(swapped.starter, 1);
+  assert.deepEqual(swapped.selected, []);
+  const moved = take(swapped, 'p2b0');
+  assert.equal(canSwapStarter(moved), false);
+  assert.equal(swapStarter(moved).starter, 1);
+  assert.equal(canSwapStarter(forfeit(createRound(), 'surrender')), false);
 });
 
 test('taking a whole final pile at once also loses', () => {
@@ -73,6 +115,8 @@ test('taking a whole final pile at once also loses', () => {
   round = take(round, 'p1b0', 'p1b1', 'p1b2', 'p1b3'); // P1
   round = take(round, 'p0b0', 'p0b1'); // P2
   assert.equal(round.loser, 1);
+  assert.equal(round.reason, 'last');
+  assert.equal(bricksLeft(round), 0);
 });
 
 test('nothing can be selected once the round is over', () => {

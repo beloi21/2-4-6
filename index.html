@@ -71,8 +71,19 @@
         </button>
       </div>
 
-      <h2 id="turn"></h2>
-      <p id="turn-sub"></p>
+      <div class="turn-row">
+        <div class="turn-text">
+          <h2 id="turn"></h2>
+          <p id="turn-sub"></p>
+        </div>
+        <div id="clock" aria-hidden="true">
+          <svg viewBox="0 0 56 56">
+            <circle class="clock-track" cx="28" cy="28" r="24" />
+            <circle id="clock-ring" class="clock-ring" cx="28" cy="28" r="24" pathLength="1" />
+          </svg>
+          <span id="clock-num">30</span>
+        </div>
+      </div>
     </header>
 
     <main id="piles" aria-label="Brick piles"></main>
@@ -88,7 +99,11 @@
     </svg>
 
     <div class="controls">
-      <button id="secondary" class="btn" type="button">Reset</button>
+      <div class="aux">
+        <button id="secondary" class="btn" type="button">Reset</button>
+        <button id="surrender" class="btn" type="button">Surrender</button>
+        <button id="swap" class="btn" type="button">Swap first</button>
+      </div>
       <button id="primary" class="btn" type="button" disabled>Tap a brick</button>
     </div>
 
@@ -98,7 +113,9 @@
       <form id="setup-form" method="dialog">
         <h2 id="setup-title">How to play</h2>
         <p>Take turns taking bricks. Take as many as you like, but only from one pile.</p>
-        <p>Whoever takes the last brick loses.</p>
+        <p>Whoever takes the last brick loses. Leave your opponent just one brick and they lose on the spot.</p>
+        <p>You get 30 seconds a turn. Run out and you lose the round.</p>
+        <p>Swap first changes who starts, until the first brick is taken. Surrender ends the round as a loss.</p>
         <p>Tap a name on the wall any time to change it.</p>
         <label class="field" for="input-0">First player's name
           <input id="input-0" type="text" maxlength="14" placeholder="Player 1" autocomplete="off" />

@@ -13,6 +13,7 @@ export function createRound(starter = 0) {
     selectedPile: null,
     selected: [],
     loser: null,
+    reason: null, // why the loser lost: last | forced | surrender | timeout
   };
 }
 
@@ -46,7 +47,10 @@ export function clearSelection(round) {
   return { ...round, selected: [], selectedPile: null };
 }
 
-/** Remove the selected bricks. Whoever empties the yard loses. */
+/**
+ * Remove the selected bricks. Whoever empties the yard loses, and so does whoever
+ * is left facing a single brick, since taking it is their only move.
+ */
 export function removeSelected(round) {
   if (round.loser !== null || round.selected.length === 0) return round;
   const piles = round.piles.map((pile, p) =>
@@ -54,17 +58,35 @@ export function removeSelected(round) {
       ? pile.filter((id) => !round.selected.includes(id))
       : pile,
   );
-  const empty = piles.every((pile) => pile.length === 0);
-  return {
-    ...round,
-    piles,
-    selected: [],
-    selectedPile: null,
-    loser: empty ? round.current : null,
-    current: empty ? round.current : 1 - round.current,
-  };
+  const left = countBricks(piles);
+  const next = 1 - round.current;
+  const base = { ...round, piles, selected: [], selectedPile: null };
+  if (left === 0) return { ...base, loser: round.current, reason: 'last' };
+  if (left === 1) return { ...base, current: next, loser: next, reason: 'forced' };
+  return { ...base, current: next };
+}
+
+/** The player to move loses on the spot: `reason` is 'surrender' or 'timeout'. */
+export function forfeit(round, reason) {
+  if (round.loser !== null) return round;
+  return { ...round, selected: [], selectedPile: null, loser: round.current, reason };
+}
+
+/** Who moves first can only change before anyone has taken a brick. */
+export function canSwapStarter(round) {
+  return round.loser === null && bricksLeft(round) === PILE_SIZES.reduce((a, b) => a + b, 0);
+}
+
+export function swapStarter(round) {
+  if (!canSwapStarter(round)) return round;
+  const starter = 1 - round.starter;
+  return { ...round, starter, current: starter, selected: [], selectedPile: null };
+}
+
+function countBricks(piles) {
+  return piles.reduce((sum, pile) => sum + pile.length, 0);
 }
 
 export function bricksLeft(round) {
-  return round.piles.reduce((sum, pile) => sum + pile.length, 0);
+  return countBricks(round.piles);
 }

@@ -318,6 +318,10 @@ The no-WebGL fallback, so the game still plays.
 - **Style:** Fired Clay with a 2px chalk border and 6px corners, stacked in flex columns. The last brick's face becomes a flat SVG in the same colours.
 - **Chosen:** Ember fill with a 3px dashed chalk ring, 2px out, so selection never rests on colour alone.
 
+### Turn Clock and Round Controls
+
+A chalk ring beside the turn text wears away over 30 seconds, with the seconds inside. It turns ember at 10 seconds and beats at 5. Reset, Surrender and Swap first share a slim row above the primary button; Swap first leaves after the first move, and Surrender asks "Really?" before it counts. When the round ends, the row collapses back to Clear score beside Play again so the last brick keeps the stage.
+
 ## Do's and Don'ts
 
 ### Do:
